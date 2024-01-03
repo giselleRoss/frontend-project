@@ -1,8 +1,11 @@
 console.log("Hello!")
+
 const $result = $("#jokeText");
 //create a click event so when dad image is clicked, a random joke appears
 $("#dadImage").on("click", (event) => {
   event.preventDefault();
+  var audio = new Audio('./sounds/peter-griffen-laugh.mp3');
+  audio.play();
   randomJoke();
 });
 //create another click for the search button to return jokes with that word
