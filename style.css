@@ -19,7 +19,6 @@
     height: auto;
 }
 
-/* Existing CSS remains unchanged */
 
 /* Styling for the quote box */
 .quote-box {
@@ -49,9 +48,6 @@
     max-width: 400px; /* Adjust the width of the joke boxes */
     /* Additional styles for spacing, border-radius, etc. */
 }
-
-/* Rest of your existing styles */
-
 
 body {
     background-image: linear-gradient(to right, rgb(14, 104, 177) , rgb(203, 203, 8));
