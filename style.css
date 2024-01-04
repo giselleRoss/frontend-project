@@ -1,0 +1,61 @@
+
+/* Adjustments for the centered content */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-top: 50px; /* Adjust margin-top as needed */
+}
+
+/* Styling for the image and quote box */
+.result-card {
+    margin-right: 20px; /* Adjust the space between image and quote box */
+}
+
+.result-card img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Existing CSS remains unchanged */
+
+/* Styling for the quote box */
+.quote-box {
+    border-left: 5px solid #5e8e5a; /* Change the border color */
+    background-color: #f9f9f9; /* Change the background color */
+    padding: 20px;
+    max-width: 300px; /* Adjust the width of the quote box */
+    margin-top: 20px; /* Adjust the top margin */
+}
+
+/* Styling for the quote text */
+.quote-box p {
+    font-style: italic; /* Italics for the quote text */
+    font-size: 18px; /* Adjust font size */
+    color: #333; /* Change text color */
+}
+
+/* Rest of your existing styles */
+/* Existing CSS remains unchanged */
+
+/* Styling for the joke boxes */
+.joke-box {
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    padding: 15px;
+    margin-top: 10px;
+    max-width: 400px; /* Adjust the width of the joke boxes */
+    /* Additional styles for spacing, border-radius, etc. */
+}
+
+/* Rest of your existing styles */
+
+
+body {
+    background-image: linear-gradient(to right, rgb(14, 104, 177) , rgb(203, 203, 8));
+}
+#results {
+    align-items: center;
+}
