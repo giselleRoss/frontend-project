@@ -8,6 +8,7 @@ console.log("Hello!");
 const $result = $("#jokeText");
 const audio = new Audio("./sounds/peter-griffen-laugh.mp3");
 const $jokesContainer = $("#jokes-container");
+let jokes = [];
 const jokesPerPage = 2;
 
 //create a click event so when dad image is clicked, a random joke appears
@@ -42,7 +43,16 @@ $("#searchInput").on("keypress", (event) => {
     $("#enterSearch").text("Please enter a search term");
   }
 });
-
+//create a event listener to scroll down when clicked
+$("#scrollDownBtn").on("click", () => {
+  $("html, body").animate(
+    {
+      scrollTop: $jokesContainer.offset().top,
+    },
+    300
+  );
+});
+//once page is ready, callback will run
 $(document).ready(() => {
   $("#scrollDownBtn").on("click", function () {
     // Scroll to the jokes container
@@ -57,59 +67,60 @@ $(document).ready(() => {
 });
 
 // Function to display jokes in containers
-const displayJokes = (jokes) => {
-  $jokesContainer.empty();
-  if (jokes.length > 0) {
+const displayJokes = (newJokes) => {
+  if (newJokes && newJokes.length > 0) {
     //loop through each joke and create a card
-    jokes.forEach((jokeData, index) => {
-      const $card = $("<div></div>").addClass("card");
-      //create divs for a header and body
+    newJokes.forEach((jokeData, index) => {
+      const $card = $("<div></div>")
+        .addClass("card text-white bg-primary mb-3")
+        .css({
+          "max-width": "40rem", // maximum width to 40rem
+        });
+
       const $cardHeader = $("<div></div>")
         .addClass("card-header")
+        .css({
+          "font-size": "2rem",
+          "background-color": "blue", //background color of header is blue
+        })
         .text(`Joke ${index + 1}`);
-      const $cardBody = $("<div></div>").addClass("card-body");
-      //create a blockquote for the joke
-      const $blockQuote = $("<blockquote></blockquote>").addClass(
-        "blockquote mb-0"
-      );
-      //add & change the text for p element
-      const $quoteText = $("<p></p>").text(jokeData.joke);
-      //add a footer to the card to add like an author
-      const $footer = $("<footer></footer>")
-        .addClass("block-footer")
-        .text(`Someone famous`);
 
+      const $cardBody = $("<div></div>").addClass("card-body");
+      const $blockQuote = $("<blockquote></blockquote>")
+        .addClass("blockquote mb-0")
+        .css({
+          "background-color": "white",
+          color: "black",
+        });
+
+      const $quoteText = $("<p></p>").text(jokeData.joke).css({
+        color: "black",
+      });
+
+      const $footer = $("<footer></footer>")
+        .addClass("block-footer").css({
+          color: "black",
+        });
+
+      //append all of it together and then to the card
       $blockQuote.append($quoteText, $footer);
       $cardBody.append($blockQuote);
       $card.append($cardHeader, $cardBody);
       $jokesContainer.append($card);
     });
-
-    if (jokes.length > jokesPerPage) {
-      // Show the "Show More Jokes" button if more than the predefined limit
+    const totalJokes = jokes.length + newJokes.length;
+    if (totalJokes > jokesPerPage) {
+      // If total jokes exceed the page limit, show the "Show More Jokes" button
       $("#scrollDownBtn").show("bounce");
     } else {
-      $("#scrollDownBtn").hide(); // Hide button if no more jokes to display
+      $("#scrollDownBtn").hide();
     }
   } else {
     $result.text("No Jokes Found");
-    $("#scrollDownBtn").hide(); // Hide button if no jokes to display
+    // $("#scrollDownBtn").hide(); // hide button if no jokes to display
   }
 };
 
-//create a event listener to scroll down when clicked
-$("#scrollDownBtn").on("click", () => {
-  $("html, body").animate(
-    {
-      scrollTop: $jokesContainer.offset().top,
-    },
-    300
-  );
-});
-// $(".seeMoreBtn").on("click", (event) => {
-//   event.preventDefault();
-
-// });
 // create a seperate function to return the random joke using $.ajax call
 const randomJoke = () => {
   const url = `https://icanhazdadjoke.com/`;
@@ -119,7 +130,7 @@ const randomJoke = () => {
     method: "GET",
     url: url,
     headers: {
-      Accept: "text/plain",
+      Accept: "application/json",
     },
     success: (data) => {
       $result.text(data);
@@ -143,12 +154,20 @@ const searchJokes = (searchTerm) => {
     },
     success: (data) => {
       console.log(data.results);
+
+      //if there are jokes found, show the joke and then play audio
       if (data.results && data.results.length > 0) {
-        displayJokes(data.results);
+        const jokesData = data.results.map((joke) => ({ joke: joke.joke })); // Structure all jokes
+
+        displayJokes(jokesData); // Display all jokes
+        const firstJoke = data.results[0]; // Get the first joke
+        $result.text(firstJoke.joke); // Display the first joke in the joke box
         setTimeout(() => {
           audio.play();
         }, 3000);
-      } else {
+      }
+      //if not, return no jokes found & hide the show more button
+      else {
         $result.text("No Jokes Found");
         $("#scrollDownBtn").hide();
       }
@@ -158,21 +177,3 @@ const searchJokes = (searchTerm) => {
     },
   });
 };
-
-// $tweetContainer = $(".tweets");
-// $authorTweets = $('.user');
-
-// let lastTweetIndex = 0;
-// $authorTweets.empty();
-//   $tweetContainer.empty();
-//   const tweets = streams.users[userName]; // get array of tweet objects from user
-//   for (let tweet of tweets){
-//     console.log(tweet);
-//     const $message = $(`<div><p>${tweet.message} at ${tweet.createdAt}</p><div>`);
-//     $authorTweets.prepend($message);
-//   }
-
-//   $authorTweets.prepend(`<h4>Messages By ${userName} </h4>`);
-// }
-
-// $('.displayTweets').on('click', addTweets);
