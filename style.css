@@ -42,7 +42,7 @@
 }
 
 body {
-    background-image: linear-gradient(to bottom right, rgb(232, 221, 16), rgb(14, 104, 177));
+    background-image: linear-gradient(to bottom right, rgb(253, 243, 40), rgb(6, 55, 218));
 }
 #results {
     align-items: center;
@@ -56,3 +56,46 @@ body {
     text-indent: 50px;
     font-size: 75px;
 }
+
+footer {
+    position:relative;
+    bottom: 0;
+    width: 100%;
+  }
+/* Media queries for responsiveness */
+
+/* For small screens (mobile) */
+@media screen and (max-width: 767px) {
+    .container {
+      /* margin-top  */
+      margin-top: 20px;
+    }
+  
+    /* font size  */
+    .jokesTitle {
+      font-size: 40px;
+    }
+  
+    /* resize Dad image */
+    .result-card img {
+      max-width: 80%;
+      height: auto;
+    }
+  }
+  
+  /* For medium screens (tablets) */
+  @media screen and (min-width: 768px) and (max-width: 991px) {
+    .container {
+      /* margin-top*/
+      margin-top: 50px;
+    }
+  }
+  
+  /* For large screens (desktops/laptops) */
+  @media screen and (min-width: 992px) {
+    .container {
+      margin-top: 100px;
+    }
+  }
+  
+  
