@@ -80,12 +80,19 @@ const displayJokes = (newJokes) => {
         $avatarLink.append($avatarFigure);
         $avatar.append($avatarLink);
 
-        const $info = $("<div></div>").addClass("info");
+        const $info = $("<div></div>").addClass("info").css({
+          "flex":"wrap",
+          "flex-direction":"column",
+          "padding": "36px"
+        });
         const $name = $("<h4></h4>");
         const $nameLink = $("<a></a>")
           .attr("href", "javascript:void(0)")
           .text("DadJokes101")
-          .css("color", "black");
+          .css({
+            "color": "white",
+            "padding": "36px"
+          });
         const $username = $("<small></small>").text("@" + randName);
 
         $info.append($avatar, $name.append($nameLink), $username);
